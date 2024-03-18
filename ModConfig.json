@@ -1,0 +1,21 @@
+{
+  "ModId": "p5rpc.twitchcontrol.velvet",
+  "ModName": "Velvet Control P5R",
+  "ModAuthor": "dotBeeps",
+  "ModVersion": "0.0.1",
+  "ModDescription": "Description",
+  "ModDll": "VelvetControl.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/VelvetControl.dll",
+  "ModR2RManagedDll64": "x64/VelvetControl.dll",
+  "ModNativeDll32": "",
+  "ModNativeDll64": "",
+  "IsLibrary": false,
+  "ReleaseMetadataFileName": "VelvetControl.ReleaseMetadata.json",
+  "PluginData": {},
+  "IsUniversalMod": false,
+  "ModDependencies": [ "reloaded.sharedlib.hooks", "p5rpc.modloader", "p5rpc.lib", "p5r.enhance.cbt" ],
+  "OptionalDependencies": [],
+  "SupportedAppId": ["p5r.exe"],
+  "ProjectUrl": ""
+}
