@@ -72,15 +72,34 @@ public class Mod : ModBase // <= Do not Remove.
             _commandHelper = new CommandHelper(_personaHelper);
             _p5rLib.Sequencer.EventStarted += EventStarted;
             _p5rLib.Sequencer.SequenceChanged += SequenceChanged;
-
             _twitchPubSub = new TwitchPubSub();
-            _twitchPubSub.OnPubSubServiceConnected += OnPubSubConnected;
-            _twitchPubSub.OnChannelExtensionBroadcast += OnBroadcast;
-            _twitchPubSub.OnListenResponse += onListenResponse;
-            _twitchPubSub.Connect();
+            new Task<Task>(async () =>
+            {
+                string? authCode = await LoginFlow.GetTwitchAuthCode();
+                if (authCode is not null)
+                {
+                    var token = await LoginFlow.AuthWithServer(authCode);
+                    if (token is not null)
+                    {
+                        _twitchPubSub.OnPubSubServiceConnected += OnPubSubConnected;
+                        _twitchPubSub.OnChannelExtensionBroadcast += OnBroadcast;
+                        _twitchPubSub.OnListenResponse += onListenResponse;
+                        _logger.WriteLine("[Velvet Control] Set up twitch hooks.");
+                        _twitchPubSub.Connect();
+                    }
+                    else
+                    {
+                        _logger.WriteLine("[Velvet Control] Error retrieving auth token, please try relaunching.");
+                    }
+                }
+                else
+                {
+                    _logger.WriteLine("[Velvet Control] User refused auth, disabling.");
+                }
+            }).Start();
             Util.Init(_logger,_configuration);
+            PartyStatusHelper.Init(_logger,_configuration);
             RosterHelper.Init(_logger,_configuration);
-            _logger.WriteLine("[Velvet Control] Set up twitch hooks.");
         }
 
 
@@ -112,10 +131,10 @@ public class Mod : ModBase // <= Do not Remove.
             _logger.WriteLine(message.command);
             if (_commandHelper.Commands.ContainsKey(message.command))
             {
-                RosterHelper.DebugRoster();
                 _logger.WriteLine($"Calling: {message.command}");
                 new Thread(() =>
                 {
+                    PartyStatusHelper.DebugParty();
                     _commandHelper.Commands[message.command].Invoke(message.parameters);
                 }).Start();
             }

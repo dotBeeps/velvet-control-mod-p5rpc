@@ -22,6 +22,7 @@ public class RosterHelper
               var baseAddress = (long) Process.GetCurrentProcess().MainModule.BaseAddress;
               var rosterAddress = baseAddress + 0x29E8EE4;
               Personas = new FixedArrayPtr<PersonaStruct>((PersonaStruct*)rosterAddress, 12);
+              logger.WriteLine($"[Velvet Control] Roster Helper started.");
        }
 
        internal static void DebugRoster()

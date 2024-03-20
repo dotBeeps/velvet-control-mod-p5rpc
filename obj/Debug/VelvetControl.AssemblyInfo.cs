@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VelvetControl")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f967757254cb551e64ebcfd56155a07a13c27019")]
 [assembly: System.Reflection.AssemblyProductAttribute("VelvetControl")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VelvetControl")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

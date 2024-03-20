@@ -25,6 +25,7 @@ public class CommandHelper
         Commands.Add("delete_persona", DeletePersona);
         Commands.Add("set_persona", SetPersona);
         Commands.Add("transmute_persona", TransmutePersona);
+        Commands.Add("set_ailment", SetAilments);
     }
 
     private void GivePersona(VelvetParams para)
@@ -93,5 +94,10 @@ public class CommandHelper
         PersonaStruct persona = RosterHelper.Personas.Get(para["slot"]);
         persona.Id = (ushort) para["id"];
         RosterHelper.Personas.Set(para["slot"], persona);
+    }
+
+    private void SetAilments(VelvetParams para)
+    {
+        PartyStatusHelper.SetStatus(para["slot"], (uint)para["ailment"]);
     }
 }
